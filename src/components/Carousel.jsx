@@ -1,56 +1,56 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./Carousel.css";
 import { images } from "../data/CarouselData";
-// you can explore more - and check as how to use materiul ui
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-// implement the class below
-class Carousel extends Component {
-  constructor(){
-    super();
-    this.state={
-        currImageIndex:0,
+const Carousel = () => {
+  const [currImageIndex, setCurrImageIndex] = useState(0);
+
+  const prev = () => {
+    if (currImageIndex > 0) {
+      setCurrImageIndex(currImageIndex - 1);
+    } else {
+      setCurrImageIndex(images.length - 1);
     }
-  }
-  prev=()=>{
-    if(this.state.currImageIndex>0){
-        this.setState({currImageIndex:this.state.currImageIndex-1})
-    }else{
-        this.setState({currImageIndex:images.length-1});
+  };
+
+  const next = () => {
+    if (currImageIndex < images.length - 1) {
+      setCurrImageIndex(currImageIndex + 1);
+    } else {
+      setCurrImageIndex(0);
     }
-  }
-  next=()=>{
-    if(this.state.currImageIndex<images.length-1){
-        this.setState({currImageIndex:this.state.currImageIndex+1})
-    }else{
-        this.setState({currImageIndex:0});
-    }
-  }
-  render(){
-    return(
+  };
+
+  return (
     <>
-    <div className="main-container">
-       <div className="btn-container">
-       <div className=" left-btn" onClick={this.prev}><ArrowBackIosIcon style={{fill:"white"}}/></div>
-       <div className="right-btn" onClick={this.next}><ArrowForwardIosIcon style={{fill:"white"}}/></div>
-      
-       </div>
-    <div>
-    
-    </div>
-    <div className="image-span-container">
-        <span className="text title">{images[this.state.currImageIndex].title}</span>
-        <img src={images[this.state.currImageIndex].img} alt="img"/>
-        <span className="text subtitle">{images[this.state.currImageIndex].subtitle}</span>
-    </div>
-   
-   
-    
-    </div>
+      <div className="main-container">
+        <div className="btn-container">
+          <div className="left-btn" onClick={prev}>
+            <ArrowBackIosIcon style={{ fill: "white" }} />
+          </div>
+          <div className="right-btn" onClick={next}>
+            <ArrowForwardIosIcon style={{ fill: "white" }} />
+          </div>
+        </div>
+        <div>
+        </div>
+        <div className="image-span-container">
+          <span className="text title">
+            {images[currImageIndex].title}
+          </span>
+          <img
+            src={images[currImageIndex].img}
+            alt="img"
+          />
+          <span className="text subtitle">
+            {images[currImageIndex].subtitle}
+          </span>
+        </div>
+      </div>
     </>
-    )
-  }
-}
+  );
+};
 
 export default Carousel;
